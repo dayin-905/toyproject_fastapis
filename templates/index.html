@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Mark - 혼밥 레시피 💖</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;700&family=Great+Vibes&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="css/style.css" rel="stylesheet">
+
+    <style> 
+        /* 컬러 팔레트 정의 */
+        :root {
+            --color-base: #FAFAD2; /* 기본 배경색 (Light Goldenrod Yellow) */
+            --color-point: #3CAEFF; /* 포인트 컬러 (밝은 파랑/하늘색) */
+            --color-secondary: #E0D8B0; /* 빈티지 베이지 톤 (세cond 컬러) */
+            --color-text: #333333; /* 글자 컬러 (어두운 회색) */
+            --color-dark-text: #000000; /* 검정 글자 */
+            --font-family-main: 'Lora', 'Noto Sans KR', serif;
+            --font-family-heading: 'Playfair Display', serif; /* 제목/브랜드명 등 강조 폰트 */
+            --font-family-accent: 'Great Vibes', cursive; /* 스크립트/손글씨 폰트 */
+        }
+
+        body {
+            background-color: var(--color-base); /* 기본 배경색 적용 */
+            color: var(--color-text);
+            font-family: var(--font-family-main);
+            line-height: 1.8; /* 가독성을 위한 줄 간격 */
+            display: flex; /* 푸터 하단 고정을 위한 flexbox */
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 1. 네비게이션 바 스타일 */
+        .navbar {
+            background-color: var(--color-base) !important; /* 기본 배경색 적용 */
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* 은은한 그림자 효과 */
+            padding: 1rem 1.5rem; /* 네비게이션 바 높이 조정 */
+        }
+
+        .navbar-brand {
+            color: var(--color-dark-text) !important; /* 브랜드명 컬러 */
+            font-weight: 700;
+            font-size: 2rem; /* 브랜드명 크기 키우기 */
+            letter-spacing: 1px;
+            transition: color 0.3s ease-in-out;
+            font-family: var(--font-family-heading) !important;
+        }
+        .navbar-brand:hover {
+            color: var(--color-point) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--color-dark-text) !important;
+            font-weight: 500;
+            margin: 0 0.8rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-point);
+            transition: width 0.3s ease-out;
+        }
+
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--color-point) !important;
+        }
+
+        .dropdown-menu {
+            background-color: var(--color-base);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown-item {
+            color: var(--color-dark-text);
+            padding: 0.7rem 1.2rem;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--color-secondary);
+            color: var(--color-dark-text);
+        }
+
+        /* 2. Hero Section 스타일 */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 80vh; /* Full viewport height */
+            background: url('https://via.placeholder.com/1920x1080/E0D8B0/333333?text=Vintage+Bakery') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); /* Dark overlay for text readability */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .hero-content .display-2 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content .lead {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-custom-main-hero {
+            background-color: var(--color-secondary); /* Toned-down color */
+            color: var(--color-dark-text);
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-custom-main-hero:hover {
+            background-color: var(--color-point);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 3. 버튼 스타일 (General) */
+        .btn-custom-main {
+            background-color: white; /* 메인 버튼은 흰색으로 대비 효과 */
+            color: var(--color-point); /* 글자색은 포인트 컬러 */
+            border: none; /* 테두리 없애기 */
+            padding: 1rem 2.5rem; /* 버튼 패딩 크게 */
+            border-radius: 50px; /* 더 둥근 알약형 버튼 */
+            font-weight: 700;
+            font-size: 1.15rem; /* 글자 크기 키우기 */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* 부드러운 그림자 */
+            transition: all 0.3s cubic-bezier(.25,.8,.25,1); /* 통통 튀는 애니메이션 */
+        }
+
+        .btn-custom-main:hover {
+            background-color: var(--color-point); /* 호버 시 세컨드 컬러로 변색 */
+            color: white;
+            transform: translateY(-5px); /* 버튼이 위로 살짝 통통 */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-outline-search { /* 검색 버튼 스타일 */
+            color: var(--color-dark-text);
+            background-color: transparent;
+            border: 1px solid var(--color-dark-text);
+            border-radius: 50px; /* 검색 버튼도 둥글게 */
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 0.5rem 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-outline-search:hover {
+            background-color: var(--color-dark-text);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .form-control.rounded-pill {
+            border-radius: 50px !important; /* 검색창도 둥글게 */
+            border: 1px solid var(--color-dark-text);
+            padding: 0.5rem 1.2rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-control.rounded-pill:focus {
+            border-color: var(--color-point);
+            box-shadow: 0 0 0 0.25rem rgba(60, 174, 255, 0.25);
+        }
+
+
+        /* 4. 카드 스타일 (귀여움 및 가독성 강조) */
+        .card-recipe {
+            border: none; /* 기본 부트스트랩 테두리 제거 */
+            background-color: white; /* 카드 배경 흰색으로 가독성 확보 */
+            border-radius: 1.5rem; /* 더 둥근 모서리 */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* 부드러운 그림자 */
+            transition: transform 0.3s cubic-bezier(.17,.67,.83,.67), box-shadow 0.3s; /* 살짝 통통 튀는 호버 애니 */
+            overflow: hidden; /* 이미지 경계 처리 */
+        }
+
+        .card-recipe:hover {
+            transform: translateY(-8px); /* 호버 시 위로 살짝 통통 */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top-recipe {
+            height: 220px; /* 이미지 높이 통일 및 약간 확대 */
+            object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
+            border-radius: 1.5rem 1.5rem 0 0; /* 상단만 둥글게 */
+            filter: brightness(0.95); /* 이미지 살짝 밝게 */
+        }
+
+        .card-body-recipe {
+            padding: 1.8rem 1.5rem; /* 패딩 증가 */
+            text-align: center; /* 카드 내용 중앙 정렬 */
+        }
+
+        .card-title-recipe {
+            color: var(--color-dark-text); /* 타이틀에 다크 텍스트 컬러 적용 */
+            font-family: var(--font-family-accent); /* 스크립트 폰트 적용 */
+            font-weight: 700;
+            font-size: 1.8rem; /* 제목 크기 키우기 */
+            margin-bottom: 0.8rem; /* 제목 아래 여백 */
+            letter-spacing: 0.5px;
+        }
+
+        .card-text-recipe {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-recipe-view {
+            background-color: var(--color-secondary);
+            color: var(--color-dark-text);
+            border: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px; /* 더 둥근 버튼 */
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn-recipe-view:hover {
+            background-color: var(--color-point);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 5. 푸터 스타일 */
+        footer {
+            background-color: var(--color-secondary); /* 세cond 컬러 적용 */
+            color: var(--color-text);
+            margin-top: auto; /* 푸터를 하단에 고정 */
+            padding-top: 3rem;
+        }
+
+        footer .container p {
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        footer .text-center {
+            background-color: rgba(0, 0, 0, 0.08); /* 하단 카피라이트 배경 */
+            padding: 1rem !important;
+            font-size: 0.9rem;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand text-uppercase" href="index.html" style="font-family: var(--font-family-heading); font-weight: 700; font-size: 2rem; letter-spacing: 1px; color: var(--color-dark-text) !important;">Vintage Bakery</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-uppercase">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOurBakeries" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Our Bakeries
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownOurBakeries">
+                            <li><a class="dropdown-item" href="#">Signature Items</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRecipes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Recipes
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownRecipes">
+                            <li><a class="dropdown-item" href="#">Morning Loaves</a></li>
+                            <li><a class="dropdown-item" href="#">Sweet Delights</a></li>
+                            <li><a class="dropdown-item" href="#">Daily Bread</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownJournalAdmin" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Journal & Admin
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownJournalAdmin">
+                            <li><a class="dropdown-item" href="#">Archive Calendar</a></li>
+                            <li><a class="dropdown-item" href="#">Admin Dashboard (CRUD)</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex ms-3">
+                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-search" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="btn btn-outline-search ms-2" type="button">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid p-0">
+        <section class="hero-section text-center d-flex align-items-center justify-content-center">
+            <div class="hero-content text-white">
+                <h1 class="display-2 text-uppercase mb-4" style="font-family: var(--font-family-heading); font-weight: 700; letter-spacing: 2px;">
+                    Vintage Bakery
+                </h1>
+                <p class="lead mb-5" style="font-family: var(--font-family-main); max-width: 700px; margin: 0 auto;">
+                    Experience the timeless charm of our handcrafted baked goods, made with love and tradition.
+                </p>
+                <a href="#" class="btn btn-lg btn-custom-main-hero text-uppercase">Explore Our Menu</a>
+            </div>
+        </section>
+
+        <section class="container my-5">
+            <h2 class="text-center mb-5" style="font-family: var(--font-family-heading); font-weight: 700; font-size: 3rem; letter-spacing: 1px; color: var(--color-dark-text);">
+                Our Signature Creations
+            </h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-recipe h-100">
+                        <img src="https://via.placeholder.com/400x220/E0D8B0/333333?text=Croissant" class="card-img-top-recipe" alt="Croissant">
+                        <div class="card-body card-body-recipe">
+                            <h5 class="card-title card-title-recipe">Croissant</h5>
+                            <p class="card-text card-text-recipe">Golden, flaky, and buttery perfection. Our croissants are a taste of Parisian mornings, baked fresh daily.</p>
+                            <a href="#" class="btn btn-recipe-view">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-recipe h-100">
+                        <img src="https://via.placeholder.com/400x220/FAFAD2/333333?text=Dubai+Chewy+Cookie" class="card-img-top-recipe" alt="Dubai Chewy Cookie">
+                        <div class="card-body card-body-recipe">
+                            <h5 class="card-title card-title-recipe">Dubai Chewy Cookie</h5>
+                            <p class="card-text card-text-recipe">A delightful blend of rich chocolate and a perfectly chewy texture, inspired by the luxurious flavors of Dubai.</p>
+                            <a href="#" class="btn btn-recipe-view">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-recipe h-100">
+                        <img src="https://via.placeholder.com/400x220/E0D8B0/333333?text=Egg+Tart" class="card-img-top-recipe" alt="Egg Tart">
+                        <div class="card-body card-body-recipe">
+                            <h5 class="card-title card-title-recipe">Egg Tart</h5>
+                            <p class="card-text card-text-recipe">Silky smooth custard baked in a crisp, golden pastry shell. A classic treat that melts in your mouth.</p>
+                            <a href="#" class="btn btn-recipe-view">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container my-5 text-center">
+            <h2 class="text-center mb-5" style="font-family: var(--font-family-heading); font-weight: 700; font-size: 3rem; letter-spacing: 1px; color: var(--color-dark-text);">
+                From Our Journal
+            </h2>
+            <p class="lead mb-4" style="font-family: var(--font-family-main);">
+                Discover our daily stories, baking adventures, and behind-the-scenes moments.
+            </p>
+            <div class="p-5 border rounded-3" style="background-color: var(--color-secondary); border-color: var(--color-point) !important;">
+                <h3 style="font-family: var(--font-family-accent); color: var(--color-dark-text);">Archive Calendar Coming Soon!</h3>
+                <p class="mb-0" style="font-family: var(--font-family-main); color: var(--color-text);">
+                    A beautiful, interactive calendar to browse our journal entries by date.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center text-lg-start" style="background-color: var(--color-secondary); color: var(--color-text); font-family: var(--font-family-main);">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-3" style="font-family: var(--font-family-heading); font-weight: 700; color: var(--color-dark-text);">Vintage Bakery</h5>
+                    <p style="font-size: 0.9rem;">
+                        Crafting delightful moments, one bake at a time.
+                    </p>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-3" style="font-family: var(--font-family-heading); font-weight: 700; color: var(--color-dark-text);">Contact Us</h5>
+                    <ul class="list-unstyled mb-0" style="font-size: 0.9rem;">
+                        <li><p><i class="fas fa-map-marker-alt me-2"></i> 123 Bakery Lane, Sweet Town, ST 12345</p></li>
+                        <li><p><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</p></li>
+                        <li><p><i class="fas fa-envelope me-2"></i> dayin.9905@gmail.com</p></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-3" style="font-family: var(--font-family-heading); font-weight: 700; color: var(--color-dark-text);">Hours</h5>
+                    <ul class="list-unstyled mb-0" style="font-size: 0.9rem;">
+                        <li><p>Mon - Fri: 8 AM - 6 PM</p></li>
+                        <li><p>Sat: 9 AM - 5 PM</p></li>
+                        <li><p>Sun: Closed</p></li>
+                    </ul>
+                    <div class="mt-3">
+                        <a href="#" class="text-dark me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-dark me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05); font-size: 0.85rem;">
+            © 2025 Vintage Bakery. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
