@@ -15,15 +15,17 @@ templates = Jinja2Templates(directory="templates/")
 #     os.makedirs(static_directory)
 # app.mount("/static", StaticFiles(directory=static_directory), name="static")
 
-
+# http://127.0.0.1:8000/
 @app.get("/")
 async def read_index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+# http://127.0.0.1:8000/admin
 @app.get("/admin")
 async def read_admin(request: Request):
     return templates.TemplateResponse("admin.html", {"request": request})
 
+# http://127.0.0.1:8000/bakery
 @app.get("/bakery")
 async def read_bakery(request: Request):
     return templates.TemplateResponse("bakery.html", {"request": request})
