@@ -21,6 +21,8 @@
             --font-family-main: 'Lora', 'Noto Sans KR', serif;
             --font-family-heading: 'Playfair Display', serif; /* 제목/브랜드명 등 강조 폰트 */
             --font-family-accent: 'Great Vibes', cursive; /* 스크립트/손글씨 폰트 */
+            --bs-primary: var(--color-point);
+            --bs-primary-rgb: 60, 174, 255;
         }
 
         body {
@@ -31,6 +33,24 @@
             display: flex; /* 푸터 하단 고정을 위한 flexbox */
             flex-direction: column;
             min-height: 100vh;
+        }
+
+        .btn-notice {
+            background-color: var(--color-point);
+            color: white;
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid var(--color-point);
+        }
+
+        .btn-notice:hover {
+            background-color: white;
+            color: var(--color-point);
+            border: 1px solid var(--color-point);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         /* 1. 네비게이션 바 스타일 */
@@ -341,6 +361,7 @@
                         <i class="fas fa-shopping-cart"></i>
                     </button>
                 </form>
+                <a href="/notice" class="btn btn-notice ms-3">Notice</a>
             </div>
         </div>
     </nav>
